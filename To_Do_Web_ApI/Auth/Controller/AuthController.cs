@@ -41,7 +41,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid username or password");
 
         string token = this._authService.GenerateJwtToken(authenticatedUser);
-        return Ok(authenticatedUser);
+        return Ok(new {access_token = token});
     }
 
 }

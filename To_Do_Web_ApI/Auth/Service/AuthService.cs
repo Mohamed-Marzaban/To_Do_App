@@ -21,9 +21,11 @@ public class AuthService
         var creds = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.username)
+            new Claim(JwtRegisteredClaimNames.Sub, user.username),
+            new Claim("userId",user.Id.ToString()),
         };
 
+        // Creates an instance of jwt token structure 
         var token = new JwtSecurityToken(
             issuer: jwtSection["Issuer"],
             audience: jwtSection["Audience"],
@@ -31,7 +33,8 @@ public class AuthService
             expires:DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSection["ExpireMinutes"])),
             signingCredentials: creds
         );
-        
+       
+        //Creates the jwt token and convert to string
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
