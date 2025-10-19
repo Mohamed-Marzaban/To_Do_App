@@ -23,7 +23,7 @@ public class TaskItemController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateTaskItemAsync(CreateTaskItemDto taskDto)
     {
-        int userId = int.Parse(User.FindFirst("userId")?.Value);
+        int userId = int.Parse(User.FindFirst("userId")?.Value!);
         TaskItem task = await this._taskItemService.CreateTaskItemAsync(taskDto, userId);
         return Created("Created Task",task);
     }
@@ -31,48 +31,44 @@ public class TaskItemController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllTasksAsync()
     {
-        List<TaskItem> tasks = await this._taskItemService.GetAllTasksAsync();
+        int userId = int.Parse(User.FindFirst("userId")?.Value!);
+        List<TaskItem> tasks = await this._taskItemService.GetAllTasksAsync(userId);
         return Ok(tasks);
     }
 
-    [HttpGet("{taskId}")]
-    public async Task<IActionResult> GetTaskItemByIdAsync(int taskId)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTaskItemByIdAsync(int id)
     {
-        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(taskId);
+        int userId = int.Parse(User.FindFirst("userId")?.Value!);
+        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(id, userId);
         
         return task is not null?Ok(task):NotFound();
     }
+    
 
-    [HttpGet("user/{userId}")]
-    public async Task<IActionResult> GetTaskItemByUserIdAsync(int userId)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTaskItemAsync(int id, UpdateTaskItemDto taskDto)
     {
-        List<TaskItem> tasks = await this._taskItemService.GetTaskItemsByUserIdAsync(userId);
+        int userId = int.Parse(User.FindFirst("userId")?.Value!);
+        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(id,userId);
         
-        return Ok(tasks);
-    }
-
-    [HttpPut("{taskId}")]
-    public async Task<IActionResult> UpdateTaskItemAsync(int taskId, UpdateTaskItemDto taskDto)
-    {
-        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(taskId);
         if (task is null)
             return NotFound();
-        if(task.UserId != int.Parse(User.FindFirst("userId")?.Value!))
-            return Unauthorized();
         
-        task = await this._taskItemService.UpdateTaskItemAsync(taskDto,taskId,task);
+        task = await this._taskItemService.UpdateTaskItemAsync(taskDto,task);
         
         return task is not null ? Ok(new{message ="Updated Task",updatedTask = task}):NotFound();
     }
 
-    [HttpDelete("{taskId}")]
-    public async Task<IActionResult> DeleteTaskItemAsync(int taskId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTaskItemAsync(int id)
     {
-        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(taskId);
+        int userId = int.Parse(User.FindFirst("userId")?.Value!);
+        TaskItem? task = await this._taskItemService.GetTaskItemByIdAsync(id,userId);
+        
         if (task is null)
             return NotFound();
-        if(task.UserId != int.Parse(User.FindFirst("userId")?.Value!))
-            return Unauthorized();
+    
         await this._taskItemService.DeleteTaskItemAsync(task);
         
         return Ok(new { message = "Task deleted", deletedTask = task });

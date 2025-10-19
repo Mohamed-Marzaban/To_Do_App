@@ -28,21 +28,16 @@ public class TaskItemService
 
     }
 
-    public async Task<List<TaskItem>> GetAllTasksAsync()
+    public async Task<List<TaskItem>> GetAllTasksAsync(int userId)
     {
-       return await this._db.TaskItems.ToListAsync();
+       return await this._db.TaskItems.Where(task=>task.UserId==userId).ToListAsync();
     }
 
-    public async Task<TaskItem?> GetTaskItemByIdAsync(int taskId)
+    public async Task<TaskItem?> GetTaskItemByIdAsync(int taskId,int userId)
     {
-        return await this._db.TaskItems.FindAsync(taskId);
+        return await this._db.TaskItems.Where(task => task.Id == taskId && task.UserId==userId).FirstOrDefaultAsync();
     }
-
-    public async Task<List<TaskItem>> GetTaskItemsByUserIdAsync(int userId)
-    {
-        return await this._db.TaskItems.Where(task=>task.UserId == userId).ToListAsync();
-    }
-
+    
     public async Task DeleteTaskItemAsync(TaskItem taskItem)
     { 
         this._db.TaskItems.Remove(taskItem);
@@ -50,7 +45,7 @@ public class TaskItemService
 
     }
 
-    public async Task<TaskItem?> UpdateTaskItemAsync(UpdateTaskItemDto taskDto, int taskId,TaskItem task)
+    public async Task<TaskItem?> UpdateTaskItemAsync(UpdateTaskItemDto taskDto,TaskItem task)
     {
         
         task.Title = taskDto.title ?? task.Title;
