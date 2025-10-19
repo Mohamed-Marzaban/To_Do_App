@@ -16,12 +16,13 @@ public class AuthService
     }
     public string GenerateJwtToken(User user)
     {
+        Console.WriteLine(user.username);
         var jwtSection = _configuration.GetSection("Jwt");
         var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]!));
         var creds = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.username),
+            new Claim("username", user.username),
             new Claim("userId",user.Id.ToString()),
         };
 

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using To_Do_Web_ApI.Auth.Service;
 using To_Do_Web_ApI.Model.Dto;
 using To_Do_Web_ApI.Users.Service;
 
 
 [ApiController]
+[AllowAnonymous]
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {

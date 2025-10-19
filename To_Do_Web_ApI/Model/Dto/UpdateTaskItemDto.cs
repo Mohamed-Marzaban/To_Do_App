@@ -5,9 +5,9 @@ namespace To_Do_Web_ApI.Model.Dto;
 
 public record UpdateTaskItemDto(
     [Optional]
-    string title,
+    string? title,
     [Optional]
-    string description,
+    string? description,
     [Optional]
-    bool isDone
+    bool? isDone
     );

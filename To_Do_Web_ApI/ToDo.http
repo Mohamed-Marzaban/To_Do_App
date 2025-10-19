@@ -2,7 +2,7 @@
 Content-Type: application/json
 
 {
-  "username": "Mohamed_Shady",
+  "username": "Mohamed_Shady3",
   "password": "1234"
 }
 
@@ -11,7 +11,39 @@ POST http://localhost:5135/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "Mohamed_Shady",
+  "username": "Mohamed_Shady3",
   "password": "1234"
 }
 
+
+###
+POST http://localhost:5135/api/task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2Mzg0NywiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.ZQmDLckZDZdoVg6yb9nelygbp8rNR36T30MG6S5EFfo
+Content-Type: application/json
+
+{
+  "title": "Finish Take Home Task",
+  "description": "This task is Acl and is about XAI"
+}
+
+###
+GET http://localhost:5135/api/task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2ODU3MCwiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.idQqrWCbAhIXj8WSDGVPFYne9dEpDnHRLP-9eQB_-Ok
+
+###
+GET http://localhost:5135/api/task/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2Mzg0NywiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.ZQmDLckZDZdoVg6yb9nelygbp8rNR36T30MG6S5EFfo
+###
+GET http://localhost:5135/api/task/user/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2Mzg0NywiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.ZQmDLckZDZdoVg6yb9nelygbp8rNR36T30MG6S5EFfo
+###
+DELETE http://localhost:5135/api/task/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2Mzg0NywiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.ZQmDLckZDZdoVg6yb9nelygbp8rNR36T30MG6S5EFfo
+###
+PUT http://localhost:5135/api/task/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1vaGFtZWRfU2hhZHkzIiwidXNlcklkIjoiNCIsImV4cCI6MTc2MDg2ODU3MCwiaXNzIjoiVG9Eb1dlYkFwaSIsImF1ZCI6IlRvRG9XZWJBcGlVc2VycyJ9.idQqrWCbAhIXj8WSDGVPFYne9dEpDnHRLP-9eQB_-Ok
+Content-Type: application/json
+
+{
+  "isDone": false
+}
